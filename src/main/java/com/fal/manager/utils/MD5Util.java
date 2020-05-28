@@ -2,10 +2,6 @@ package com.fal.manager.utils;
 
 import java.security.MessageDigest;
 
-/**
- * @author 13
- * @date 2017-3-1
- */
 public class MD5Util {
 
     private static String byteArrayToHexString(byte b[]) {

@@ -16,6 +16,13 @@
         values(#{userName},#{password})
     </insert>
 
+    <insert id="insertUsersBatch">
+        insert into tb_admin_user(user_name,password_md5) VALUES
+        <foreach collection="adminUsers" index="index" item="adminUser" open="" separator="," close="">
+            (#{adminUser.userName}, #{adminUser.password})
+        </foreach>
+    </insert>
+
     <select id="findAdminUsers" parameterType="Map" resultMap="AdminUserResult">
         select id,user_name,create_time from tb_admin_user
         where is_deleted=0
@@ -69,4 +76,17 @@
     <update id="updateUserPassword">
         update tb_admin_user set password_md5 = #{newPassword},user_token ='' where id =#{userId} and is_deleted = 0
     </update>
+
+    <update id="deleteBatch">
+        update tb_admin_user
+        set is_deleted=1 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="getAllAdminUsers" resultMap="AdminUserResult">
+        select id,user_name,is_deleted,create_time from tb_admin_user
+        order by id desc
+    </select>
 </mapper>

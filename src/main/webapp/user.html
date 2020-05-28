@@ -176,6 +176,18 @@
                                 <button class="btn btn-warning" onclick="userEdit()"><i
                                         class="fa fa-edit"></i>&nbsp;编辑
                                 </button>
+                                <button class="btn btn-file" id="importV1Button"><i
+                                        class="fa fa-upload"></i>&nbsp;导入V1
+                                </button>
+                                <button class="btn btn-file" onclick="importV2()"><i
+                                        class="fa fa-upload"></i>&nbsp;导入V2
+                                </button>
+                                <button class="btn btn-danger" onclick="userDel()"><i
+                                        class="fa fa-remove"></i>&nbsp;删除
+                                </button>
+                                <button class="btn btn-file" onclick="window.location.href='/users/export'"><i
+                                        class="fa fa-download"></i>&nbsp;导出
+                                </button>
                             </div>
                             <table id="jqGrid" class="table table-bordered">
                             </table>
@@ -244,6 +256,34 @@
             <!-- /.content -->
         </div>
 
+        <div class="content">
+            <div class="modal" id="importV2Modal" tabindex="-1" role="dialog" aria-labelledby="importV2ModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h6 class="modal-title" id="importV2ModalLabel">用户导入</h6>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div class="form-group">
+                                    <input type="hidden" id="fileUrl" value="">
+                                    <div class="col-sm-10">
+                                        <a class="btn btn-info" id="uploadExcelV2"><i
+                                                class="fa fa-file"></i>&nbsp;上传Excel文件</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" id="cancelImportV2">取消</button>
+                            <button type="button" class="btn btn-primary" id="importV2Button">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+        </div>
+
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
@@ -272,6 +312,8 @@
 <script src="plugins/jqgrid-5.3.0/jquery.jqGrid.min.js"></script>
 <script src="plugins/custombox/custombox.min.js"></script>
 <script src="plugins/custombox/custombox.legacy.min.js"></script>
+<!-- ajax upload -->
+<script src="plugins/ajaxupload/ajaxupload.js"></script>
 <script src="dist/js/public.js"></script>
 <script src="dist/js/user.js"></script>
 <script src="dist/js/adminlte.js"></script>

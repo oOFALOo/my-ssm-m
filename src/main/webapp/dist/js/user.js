@@ -37,6 +37,56 @@ $(function () {
             $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "hidden"});
         }
     });
+
+    //importV1
+    new AjaxUpload('#importV1Button', {
+        action: 'users/importV1',
+        name: 'file',
+        autoSubmit: true,
+        responseType: "json",
+        onSubmit: function (file, extension) {
+            if (!(extension && /^(xlsx)$/.test(extension.toLowerCase()))) {
+                alert('只支持xlsx格式的文件！', {
+                    icon: "error",
+                });
+                return false;
+            }
+        },
+        onComplete: function (file, r) {
+            if (r.resultCode == 200) {
+                alert("成功导入" + r.data + "条记录！");
+                reload();
+                return false;
+            } else {
+                alert(r.message);
+            }
+        }
+    });
+
+    //importV2
+    new AjaxUpload('#uploadExcelV2', {
+        action: 'upload/file',
+        name: 'file',
+        autoSubmit: true,
+        responseType: "json",
+        onSubmit: function (file, extension) {
+            if (!(extension && /^(xlsx)$/.test(extension.toLowerCase()))) {
+                alert('只支持xlsx格式的文件！', {
+                    icon: "error",
+                });
+                return false;
+            }
+        },
+        onComplete: function (file, r) {
+            if (r.resultCode == 200) {
+                console.log(r);
+                $("#fileUrl").val(r.data);
+                return false;
+            } else {
+                alert(r.message);
+            }
+        }
+    });
 });
 
 function userAdd() {
@@ -153,6 +203,87 @@ $('#editButton').click(function () {
     }
 });
 
+//绑定modal上的编辑按钮
+$('#importV2Button').click(function () {
+    var fileUrl = $("#fileUrl").val();
+    $.ajax({
+        type: 'POST',
+        dataType: "json",
+        url: 'users/importV2?fileUrl=' + fileUrl,
+        contentType: "application/json; charset=utf-8",
+        success: function (result) {
+            checkResultCode(result.resultCode);
+            console.log(result);
+            if (result.resultCode == 200) {
+                closeModal();
+                reload();
+                alert("成功导入" + result.data + "条记录！");
+            }
+            else {
+                closeModal();
+                alert(result.message);
+            }
+            ;
+        },
+        error: function () {
+            reset();
+            alert("操作失败");
+        }
+    });
+});
+
+/**
+ * 用户删除
+ */
+function userDel() {
+    var ids = getSelectedRows();
+    if (ids == null) {
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        url: "users/delete",
+        contentType: "application/json",
+        beforeSend: function (request) {
+            //设置header值
+            request.setRequestHeader("token", getCookie("token"));
+        },
+        data: JSON.stringify(ids),
+        success: function (r) {
+            checkResultCode(r.resultCode);
+            if (r.resultCode == 200) {
+                alert("删除成功");
+                $("#jqGrid").trigger("reloadGrid");
+            } else {
+                alert(r.message);
+            }
+        }
+    });
+}
+
+/**
+ * 用户导入功能V1
+ */
+function importV1() {
+    alert("importV1");
+}
+
+/**
+ * 用户导入功能V2
+ */
+function importV2() {
+    //点击编辑按钮后执行操作
+    var modal = new Custombox.modal({
+        content: {
+            effect: 'fadein',
+            target: '#importV2Modal'
+        }
+    });
+    modal.open();
+}
+
+
+
 
 //添加Modal关闭
 $('#cancelAdd').click(function () {
@@ -161,6 +292,11 @@ $('#cancelAdd').click(function () {
 
 //编辑Modal关闭
 $('#cancelEdit').click(function () {
+    closeModal();
+})
+
+//导入Modal关闭
+$('#cancelImportV2').click(function () {
     closeModal();
 })
 

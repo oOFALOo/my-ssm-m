@@ -3,9 +3,6 @@ package com.fal.manager.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by 13 on 16/7/10.
- */
 public class NumberUtil {
 
     private NumberUtil() {

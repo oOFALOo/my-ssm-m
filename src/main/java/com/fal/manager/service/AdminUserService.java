@@ -4,6 +4,9 @@ import com.fal.manager.entity.AdminUser;
 import com.fal.manager.utils.PageResult;
 import com.fal.manager.utils.PageUtil;
 
+import java.io.File;
+import java.util.List;
+
 public interface AdminUserService {
 
     PageResult getAdminUserPage(PageUtil pageUtil);
@@ -44,9 +47,32 @@ public interface AdminUserService {
     int save(AdminUser user);
 
     /**
+     * 根据excel导入用户记录
+     *
+     * @param file
+     * @return
+     */
+    int importUsersByExcelFile(File file);
+
+    /**
      * 修改密码
      *
      * @return
      */
     int updatePassword(AdminUser user);
+
+    /**
+     * 批量删除功能
+     *
+     * @param ids
+     * @return
+     */
+    int deleteBatch(Integer[] ids);
+
+    /**
+     * 获取导出数据
+     *
+     * @return
+     */
+    List<AdminUser> getUsersForExport();
 }

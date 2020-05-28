@@ -60,6 +60,13 @@ public interface AdminUserDao {
     int addUser(AdminUser user);
 
     /**
+     * 批量新增用户记录
+     *
+     * @return
+     */
+    int insertUsersBatch(@Param("adminUsers") List<AdminUser> adminUsers);
+
+    /**
      * 修改密码
      *
      * @return
@@ -74,4 +81,19 @@ public interface AdminUserDao {
      * @return
      */
     int updateUserToken(@Param("userId") Long userId, @Param("newToken") String newToken);
+
+    /**
+     * 批量删除
+     *
+     * @param ids
+     * @return
+     */
+    int deleteBatch(Object[] ids);
+
+    /**
+     * 查询所有用户列表
+     *
+     * @return
+     */
+    List<AdminUser> getAllAdminUsers();
 }
