@@ -1,0 +1,77 @@
+package com.fal.manager.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class Article implements Serializable {
+    //主键
+    private Integer id;
+    //文章标题
+    private String articleTitle;
+    //文章内容
+    private String articleContent;
+    //添加人
+    private String addName;
+    //添加时间
+    private Date createTime;
+    //最新更新时间
+    private Date updateTime;
+
+    private int  isDeleted;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
+    }
+
+    public String getArticleTitle() {
+        return articleTitle;
+    }
+
+    public void setArticleContent(String articleContent) {
+        this.articleContent = articleContent;
+    }
+
+    public String getArticleContent() {
+        return articleContent;
+    }
+
+    public void setAddName(String addName) {
+        this.addName = addName;
+    }
+
+    public String getAddName() {
+        return addName;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public int getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(int isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+}

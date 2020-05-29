@@ -22,9 +22,6 @@ import java.util.Random;
 
 import static com.fal.manager.common.Constants.FILE_PRE_URL;
 
-/**
- * Created by 13 on 2017/7/17.
- */
 @Controller
 @RequestMapping("/upload")
 public class UploadFileController {
